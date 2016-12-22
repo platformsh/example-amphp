@@ -1,0 +1,24 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The type of the application to build.
+type: php:7.0
+build:
+    flavor: composer
+
+# The configuration of app when it is exposed to the web.
+web:
+    commands:
+        # This is the command to start the AmPHP/Aerys PHP server.
+        start: php vendor/bin/aerys -c aerys.php -d
+    # We need to explicitly force Platform.sh to expose a TCP socket to
+    # the application, in the PORT environment variable.
+    upstream:
+        socket_family: tcp
+        protocol: http
+
+# The size of the persistent disk of the application (in MB).
+disk: 512
