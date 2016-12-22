@@ -6,21 +6,12 @@ use Kelunik\Demo\Chat;
 use function Aerys\root;
 use function Aerys\websocket;
 
-// route /ws to the websocket endpoint
-// you can add more routes to this router
-$router = (new Router())
-    ->route("GET", "ws", websocket(new Chat));
-
-// add document root
-$root = root(__DIR__ . "/public");
 
 // Get the port from the environment.
 $port = getenv('PORT') ?: 8080;
 
-/*
-$hostname = 'localhost';
-
 // Set the host as the first applicable route defined in the routes definition on Platform.sh.
+$hostname = 'localhost';
 if (isset($_ENV['PLATFORM_ROUTES'])) {
     $routes = json_decode(base64_decode($_ENV['PLATFORM_ROUTES']), TRUE);
     foreach ($routes as $url => $route) {
@@ -31,13 +22,20 @@ if (isset($_ENV['PLATFORM_ROUTES'])) {
         }
     }
 }
-*/
 
-// create virtual host localhost:1337
+// route /ws to the websocket endpoint
+// you can add more routes to this router
+$router = (new Router())
+    ->route("GET", "ws", websocket(new Chat($hostname, $logger)));
+
+// add document root
+$root = root(__DIR__ . "/public");
+
+// create virtual host
 // requests will first be routed, if no route matches, the server tries to find a file in the document root
 // you can add more responders or even multiple document roots to a single host
 (new Host)
-    ->name('')
+    ->name($hostname)
     ->expose("0.0.0.0", $port)
     ->use($router)
     ->use($root);

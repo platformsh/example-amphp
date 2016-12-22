@@ -6,12 +6,32 @@ use Aerys\Request;
 use Aerys\Response;
 use Aerys\Websocket;
 use Aerys\Websocket\Endpoint;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 class Chat implements Websocket {
     /** @var Endpoint */
     private $endpoint;
     private $connections;
     private $ips;
+
+    /**
+     * The hostname that will be allowed to connect.
+     *
+     * @var string
+     */
+    private $hostname;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(string $hostname, LoggerInterface $logger = null)
+    {
+        $this->hostname = $hostname;
+        $this->logger = $logger ?? new NullLogger();
+    }
 
     public function onStart(Websocket\Endpoint $endpoint) {
         // On server startup we get an instance of Aerys\Websocket\Endpoint, so we can send messages to clients.
@@ -25,7 +45,9 @@ class Chat implements Websocket {
         // be able to connect to your endpoint. Websockets are not restricted by the same-origin-policy!
         $origin = $request->getHeader("origin");
 
-        if ($origin !== "http://localhost:1337") {
+        $expectedOrigin = "http://{$this->hostname}";
+
+        if ($origin !== $expectedOrigin) {
             $response->setStatus(403);
             $response->end("<h1>origin not allowed</h1>");
 
