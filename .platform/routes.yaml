@@ -1,13 +1,11 @@
 "http://{default}/":
     type: upstream
-    # the first part should be your project name
     upstream: "app:http"
     cache:
         enabled: false
 
 "http://{default}/ws":
     type: upstream
-    # the first part should be your project name
     upstream: "app:http"
     cache:
         enabled: false

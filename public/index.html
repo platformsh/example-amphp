@@ -21,7 +21,8 @@
     <input id="input" autocomplete="off" autofocus><button>send</button>
 </form>
 <script>
-    var ws = new WebSocket("ws://localhost:1337/ws");
+    var ws = new WebSocket('ws://' + window.location.hostname + '/ws');
+    //var ws = new WebSocket("ws://localhost:1337/ws");
     var input = document.getElementById("input");
     var messages = document.getElementById("messages");
 
