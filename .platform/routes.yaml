@@ -1,10 +1,10 @@
-"http://{default}/":
+"https://{default}/":
     type: upstream
     upstream: "app:http"
     cache:
         enabled: false
 
-"http://{default}/ws":
+"https://{default}/ws":
     type: upstream
     upstream: "app:http"
     cache:
