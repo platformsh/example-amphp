@@ -1,6 +1,6 @@
-# AmPHP/Aerys Websocket example for Platform.sh
+# Amp/Aerys Websocket example for Platform.sh
 
-This project shows how to setup a simple chat server using AmPHP and the Aerys HTTP server library on Platform.sh.  It is very closely based on [this example](https://github.com/kelunik/demo-chat) by Niklas Keller.
+This project shows how to setup a simple chat server using Amp and the Aerys HTTP server library on Platform.sh.  It is very closely based on [this example](https://github.com/kelunik/demo-chat) by Niklas Keller.
 
 ## Starting a new project
 
