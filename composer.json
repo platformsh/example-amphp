@@ -2,7 +2,7 @@
     "name": "kelunik/demo-chat",
     "description": "Simple chat demonstrating WebSocket usage with Aerys.",
     "require": {
-        "amphp/aerys": "^0.4"
+        "amphp/aerys": "^0.7"
     },
     "autoload": {
         "psr-4": {
